@@ -16,6 +16,7 @@ runs:
 
     - name: Install Java 5
       run: |
+        ls -la
         echo Running install java 5
         echo Started on `date`
         sudo mkdir /usr/lib/jvm/java5
