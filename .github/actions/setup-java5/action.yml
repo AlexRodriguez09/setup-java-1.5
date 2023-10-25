@@ -8,17 +8,18 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Imprimiendo path
-      run: |
-        echo ${{ inputs.path-java}}
-      shell: bash
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+          clean: false  # This is required to keep the build files
+
 
     - name: Install Java 5
       run: |
         echo Running install java 5
         echo Started on `date`
         sudo mkdir /usr/lib/jvm/java5
-        sudo cp ${{ inputs.path-java}} /usr/lib/jvm/java5/jdk-1_5_0_12-linux-amd64.bin
+        sudo cp jdk-1_5_0_12-linux-amd64.bin /usr/lib/jvm/java5/jdk-1_5_0_12-linux-amd64.bin
         sudo chmod a+x /usr/lib/jvm/java5/jdk-1_5_0_12-linux-amd64.bin
         sudo chown -R root:root /usr/lib/jvm/java5/
         echo "Print folder"
