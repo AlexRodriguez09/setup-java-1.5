@@ -1,5 +1,4 @@
 name: 'Setup Java5'
-GITHUB_TOKEN: ${{ secrets.ALEX_REPO_TOKEN }}
 description: 'Install Java 5 & Ant'
 inputs:
   path-java:

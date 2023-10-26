@@ -1,5 +1,4 @@
 name: 'Setup Ant 1.9'
-GITHUB_TOKEN: ${{ secrets.ALEX_REPO_TOKEN }}
 description: 'Install Ant 1.9'
 inputs:
   path-ant:
