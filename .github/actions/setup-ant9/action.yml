@@ -1,4 +1,5 @@
 name: 'Setup Ant 1.9'
+GITHUB_TOKEN: ${{ secrets.ALEX_REPO_TOKEN }}
 description: 'Install Ant 1.9'
 inputs:
   path-ant:
@@ -14,13 +15,17 @@ runs:
       with:
           clean: false  # This is required to keep the build files
 
-
+    - name: Download ant via wget
+      run: | 
+        curl -L -O -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "X-GitHub-Api-Version: 2022-11-28" https://raw.githubusercontent.com/AlexRodriguez09/setup-java-1.5/main/apache-ant-1.7.1-bin.tar.gz
+        ls -la
+      shell: bash   
 
     - name: Install Ant
       run: |
         sudo apt remove ant -y
         sudo mkdir /opt/ant
-        sudo tar -xvf apache-ant-1.7.1-bin.tar.gz  -C /opt/ant
+        sudo tar -xvf ${{ inputs.path-ant}}  -C /opt/ant
         sudo update-alternatives --install "/usr/bin/ant" "ant" "/opt/ant/apache-ant-1.7.1/bin/ant" 1
         sudo update-alternatives --set ant /opt/ant/apache-ant-1.7.1/bin/ant
         export ANT_HOME=/opt/ant/apache-ant-1.7.1

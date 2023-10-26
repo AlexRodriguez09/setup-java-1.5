@@ -1,4 +1,5 @@
 name: 'Setup Java5'
+GITHUB_TOKEN: ${{ secrets.ALEX_REPO_TOKEN }}
 description: 'Install Java 5 & Ant'
 inputs:
   path-java:
@@ -13,14 +14,19 @@ runs:
       with:
           clean: false  # This is required to keep the build files
 
-
+    - name: Download java via curl
+      run: | 
+        curl -L -O -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "X-GitHub-Api-Version: 2022-11-28" https://raw.githubusercontent.com/AlexRodriguez09/setup-java-1.5/main/jdk-1_5_0_12-linux-amd64.bin
+        ls -la 
+      shell: bash
+      
     - name: Install Java 5
       run: |
         ls -la
         echo Running install java 5
         echo Started on `date`
         sudo mkdir /usr/lib/jvm/java5
-        sudo cp jdk-1_5_0_12-linux-amd64.bin /usr/lib/jvm/java5/jdk-1_5_0_12-linux-amd64.bin
+        sudo cp ${{ inputs.path-java}} /usr/lib/jvm/java5/jdk-1_5_0_12-linux-amd64.bin
         sudo chmod a+x /usr/lib/jvm/java5/jdk-1_5_0_12-linux-amd64.bin
         sudo chown -R root:root /usr/lib/jvm/java5/
         echo "Print folder"
