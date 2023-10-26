@@ -6,6 +6,12 @@ inputs:
     description: 'Path  of Ant'
     required: true
     default: '/'
+
+  path-token:
+    description: 'Token'
+    required: true
+    default: '-'
+    
 runs:
   using: 'composite'
 
@@ -17,7 +23,7 @@ runs:
 
     - name: Download ant via wget
       run: | 
-        curl -L -O -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "X-GitHub-Api-Version: 2022-11-28" https://raw.githubusercontent.com/AlexRodriguez09/setup-java-1.5/main/apache-ant-1.7.1-bin.tar.gz
+        curl -L -O -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ inputs.path-token}}" -H "X-GitHub-Api-Version: 2022-11-28" https://raw.githubusercontent.com/AlexRodriguez09/setup-java-1.5/main/apache-ant-1.7.1-bin.tar.gz
         ls -la
       shell: bash   
 
